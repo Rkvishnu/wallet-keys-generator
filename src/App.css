@@ -1,38 +1,65 @@
-.App {
-  text-align: center;
-}
+ 
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+div {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  margin:  auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  max-width: 1300px;
 }
 
-.App-link {
-  color: #61dafb;
+div > div {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 10px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+div > div > label {
+  margin-right: 10px;
 }
+
+div > div > select {
+  margin-left: 10px;
+}
+
+div > div > input[type="number"] {
+  width: 50px;
+}
+
+div > div > button {
+  padding: 5px 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+div > div > button:hover {
+  background-color: #0069d9;
+}
+
+div > div > button:active {
+  background-color: #005cbf;
+}
+
+div > div > button:focus {
+  outline: none;
+}
+
+div > div > p {
+  margin: 5px 0;
+  font-size: 14px;
+  font-family: monospace;
+  line-height: 1.5;
+}
+
+.csvfile {
+  display: flex;
+   max-width: fit-content;
+  flex-direction: column;
+ }

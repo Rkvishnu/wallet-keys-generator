@@ -1,13 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
+// import GenerateKeys from './GenerateKeys';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+// import WalletC from './WalletC';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <App/>
+    {/* <WalletC/> */}
   </React.StrictMode>
 );
 
