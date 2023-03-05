@@ -1,35 +1,22 @@
-
 const webpack = require('webpack');
-module.exports = function override(config) {
-  const fallback = config.resolve.fallback || {};
-  Object.assign(fallback, {
-    "crypto": require.resolve("crypto-browserify"),
-    "stream": require.resolve("stream-browserify"),
-    "assert": require.resolve("assert"),
-    'util': require.resolve('util'),
-    "http": require.resolve("stream-http"),
-    "https": require.resolve("https-browserify"),
-    "os": require.resolve("os-browserify"),
-    "url": require.resolve("url")
-  })
+module.exports = function override(config, env) {
 
-  plugins: [
-    new webpack.IgnorePlugin({
-      checkResource(resource) {
-        return /.*\/wordlists\/(?!english).*\.json/.test(resource)
-      }
-    }),
-  ],
-  config.resolve.fallback = fallback;
-  config.plugins = (config.plugins || []).concat([
-    new webpack.ProvidePlugin({
-      process: 'process/browser',
-      Buffer: ['buffer', 'Buffer']
-    })
-    ,
-  ])
- 
+    config.resolve.fallback = {
+        url: require.resolve('url'),
+        assert: require.resolve('assert'),
+        crypto: require.resolve('crypto-browserify'),
+        http: require.resolve('stream-http'),
+        https: require.resolve('https-browserify'),
+        os: require.resolve('os-browserify/browser'),
+        buffer: require.resolve('buffer'),
+        stream: require.resolve('stream-browserify'),
+    };
+    config.plugins.push(
+        new webpack.ProvidePlugin({
+            process: 'process/browser',
+            Buffer: ['buffer', 'Buffer'],
+        }),
+    );
 
-  return config;
+    return config;
 }
-

@@ -4,11 +4,13 @@ import { ethers } from 'ethers';
 import TronWeb from 'tronweb';
 import { Keypair } from '@solana/web3.js';
 import { saveAs } from 'file-saver';
-// import bitcoin from 'bitcoinjs-lib';
-// const bitcoin=require('bitcoinjs-lib');
-// import {HD} from 'bitcoinjs-lib';
+// const BscConnector  =require('@binance-chain/javascript-sdk');
 
 
+// import {Bitcoin} from 'bitcoinjs-lib';
+// const Bitcoin= require('bitcoinjs-lib');
+// const { PrivateKey } = require('bitcore-lib');
+// const BscConnector = require('@binance-chain/bsc-connector').default;
 
 function App() {
   const [numKeys, setNumKeys] = useState(10);
@@ -19,19 +21,6 @@ function App() {
     let keysArr = [];
     switch (blockchain) {
 
-      // case 'bitcoin':
-      //   for (let i = 0; i < numKeys; i++) {
-      //     //     const { privateKey, publicKey } = bitcoin.ECPair.makeRandom();
-      //     const privateKey = HD.create_random();
-      //     const publicKey = privateKey.public_key();
-      //     const keyPair = {
-      //       privateKey: privateKey.toString("hex"),
-      //       address: publicKey.toString("hex")
-      //     };
-
-      //     keysArr.push(keyPair);
-      //   }
-      //   break;
 
 
       case 'ethereum':
@@ -73,6 +62,52 @@ function App() {
         }
         break;
 
+      // case 'bitcoin':
+      //   for (let i = 0; i < numKeys; i++) {
+      //     // const keypair = Bitcoin.ECPair.makeRandom();
+      //     // const privateKey = keypair.toWIF();
+      //     // const { address } = Bitcoin.payments.p2pkh({ pubkey: keypair.publicKey });
+
+      //     const privateKey = new PrivateKey();
+      //     const address = privateKey.toAddress();
+
+      //     const keyPair = {
+      //       privateKey: privateKey.toString(),
+      //       address: address.toString()
+      //       //  mnemonic: bip39.generateMnemonic(), 
+      //     };
+      //     keysArr.push(keyPair);
+      //   }
+      //   break;
+
+      // const web3 = new Web3('https://rpc-mainnet.maticvigil.com/');
+
+      case 'polygon':
+        for (let i = 0; i < numKeys; i++) {
+          const wallet = ethers.Wallet.createRandom();
+          const keyPair = {
+            privateKey: wallet.privateKey,
+            address: wallet.address,
+            // mnemonic: bip39.generateMnemonic(),
+          };
+          keysArr.push(keyPair);
+        }
+        break;
+
+
+      // case 'binance':
+      //   for (let i = 0; i < numKeys; i++) {
+      //     // const wallet = ethers.Wallet.createRandom();
+      //     const connector = new BscConnector({ supportedChainIds: [56] });
+      //     const { privateKey, address } = connector.initProvider();
+      //     const keyPair = {
+      //       privateKey:privateKey.toString(),
+      //       address: address.toString(),
+      //       // mnemonic: bip39.generateMnemonic(),
+      //     };
+      //     keysArr.push(keyPair);
+      //   }
+      //   break;
 
 
       default:
@@ -85,7 +120,7 @@ function App() {
   const downloadKeys = () => {
     const csv = [
       ['Private Key', 'Public Address'],
-      ...keys.map((key) => [key.privateKey, key.address, key.mnemonic])
+      ...keys.map((key) => [key.privateKey, key.address])
     ].map(row => row.join(',')).join('\n');
     const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
     saveAs(blob, `${blockchain}_keys.csv`);
@@ -107,10 +142,15 @@ function App() {
       <div>
         <label>Select blockchain:</label>
         <select value={blockchain} onChange={(e) => setBlockchain(e.target.value)}>
-          {/* <option value="bitcoin">Bitcoin</option> */}
           <option value="ethereum">Ethereum</option>
           <option value="tron">Tron</option>
           <option value="solana">Solana</option>
+          {/* <option value="bitcoin">Bitcoin</option> */}
+          <option value="polygon">Polygon</option>
+          <option value="binance">Binance</option>
+
+
+
         </select>
       </div>
       <div>
