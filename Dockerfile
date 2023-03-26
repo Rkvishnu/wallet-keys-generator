@@ -6,7 +6,7 @@ FROM  node:alpine3.16 as nodework
 WORKDIR /myapp
 
 # //copying package.json file in current working directory
-COPY ./package.json .
+COPY ./package*.json .
 
 # //installing packages
 RUN npm install 
