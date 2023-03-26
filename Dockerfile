@@ -17,14 +17,17 @@ COPY . .
 # //it will create a build folder for our application
 RUN npm run build
 
+CMD ["npm","run","start"]
+
+
 # nginx block
 
-FROM nginx:1.23-alpine
+# FROM nginx:1.23-alpine
 
-WORKDIR /usr/share/nginx/html
+# WORKDIR /usr/share/nginx/html
 
-RUN rm -rf ./*
+# RUN rm -rf ./*
 
-COPY --from=nodework /myapp/build .
+# COPY --from=nodework /myapp/build .
 
-ENTRYPOINT [ "nginx","-g", "daemon off;" ]
+# ENTRYPOINT [ "nginx","-g", "daemon off;" ]
